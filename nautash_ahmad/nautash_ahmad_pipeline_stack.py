@@ -30,7 +30,7 @@ class NautashAhmadPipelineStack(Stack):
                 'cdk synth',
                 'cdk deploy --profile nautash2022skip',
             ],
-            primary_output_directory='nautash_ahmad/cdk.out',
+            primary_output_directory='cdk.out',
             input=source
         )
         
