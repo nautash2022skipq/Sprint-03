@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_codepipeline_actions as pipeline_actions_,
 )
 from constructs import Construct
+from nautash_ahmad.nautash_ahmad_pipeline_stage import NautashAhmadPipelineStage
 
 class NautashAhmadPipelineStack(Stack):
 
@@ -32,6 +33,15 @@ class NautashAhmadPipelineStack(Stack):
             input=source
         )
         
+        # Creating a pipeline
         # https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.pipelines/CodePipeline.html
         pipeline = pipelines.CodePipeline(self, "NautashAhmadPipeline", synth=synth)
         
+        
+        # Adding stages to pipeline
+        # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.core/Stage.html
+        staging = NautashAhmadPipelineStage(self, 'Staging')
+        production = NautashAhmadPipelineStage(self, 'Production')
+        
+        pipeline.add_stage(staging)
+        pipeline.add_stage(production)
