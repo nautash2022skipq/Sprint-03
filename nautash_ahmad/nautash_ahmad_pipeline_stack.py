@@ -24,9 +24,8 @@ class NautashAhmadPipelineStack(Stack):
         synth = pipelines.ShellStep(
             'NautashAhmadPipelineShellStep',
             commands=[
-                'cd nautash_ahmad/',
                 'npm install -g aws-cdk',
-                'pip install -r ../requirements.txt',
+                'pip install -r requirements.txt',
                 'cdk synth',
                 'cdk deploy --profile nautash2022skip',
             ],
