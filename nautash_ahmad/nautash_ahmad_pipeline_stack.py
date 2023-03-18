@@ -26,8 +26,7 @@ class NautashAhmadPipelineStack(Stack):
             commands=[
                 'npm install -g aws-cdk',
                 'pip install -r requirements.txt',
-                'cdk synth',
-                'cdk deploy --profile nautash2022skip',
+                'cdk synth'
             ],
             primary_output_directory='cdk.out',
             input=source
