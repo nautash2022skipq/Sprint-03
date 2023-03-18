@@ -1,3 +1,4 @@
+import aws_cdk as cdk
 from aws_cdk import (
     Stack,
     pipelines,
@@ -14,7 +15,7 @@ class NautashAhmadPipelineStack(Stack):
         # https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.pipelines/CodePipelineSource.html#aws_cdk.pipelines.CodePipelineSource.git_hub
         source = pipelines.CodePipelineSource.git_hub(
             'nautash2022skipq/Sprint-03', 'master',
-            authentication='NautashAhmadGithubPATToken',
+            authentication=cdk.SecretValue.secrets_manager("NautashAhmadGithubPATToken"),
             trigger=pipeline_actions_.GitHubTrigger('POLL')
         )
         
@@ -28,5 +29,11 @@ class NautashAhmadPipelineStack(Stack):
                 'pip install -r requirements.txt',
                 'cdk synth',
                 'cdk deploy --profile nautash2022skip',
-            ]
+            ],
+            primary_output_directory='nautash_ahmad/cdk.out/',
+            input=source
         )
+        
+        # https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.pipelines/CodePipeline.html
+        pipeline = pipelines.CodePipeline(self, "NautashAhmadPipeline", synth=synth)
+        
